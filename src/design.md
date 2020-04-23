@@ -47,11 +47,17 @@ updateLights gets invoked when cell is clicked and then will update the state in
    [f, f, f, f, f, f]
    [f, f, f, f, f, f]
    [f, f, f, f, f, f]
-
-   x=2
+   
    y=3
+   x=2
+   
 
    coord = 3-2
+
+
+
+
+
 
 
 

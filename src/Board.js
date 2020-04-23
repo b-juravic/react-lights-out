@@ -31,19 +31,32 @@ function Board({ nrows=6, ncols=6, chanceLightStartsOn }) {
   const [board, setBoard] = useState(createBoard());
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
-  function createBoard(nrows, ncols) {
+  // function createBoard(nrows, ncols) {
+  //   let initialBoard = [];
+  //   // TODO: create array-of-arrays of true/false values
+  //   let row = [];
+  //   while (initialBoard.length < nrows) {
+  //     let random = [true, false];
+  //     let idx = Math.floor(Math.random() * 2);
+  //     // row.push(Math.random() < chanceLightStartsOn);
+  //     if( row.length < ncols) {
+  //       row.push(random[idx]);
+  //     } else {
+  //       initialBoard.push(row);
+  //       row = [];
+  //     }
+  //   }
+  //   console.log('BOARD!!!!!!', initialBoard);
+  //   return initialBoard;
+  // }
+  function createBoard() {
     let initialBoard = [];
-    // TODO: create array-of-arrays of true/false values
-    let row = [];
-    while (initialBoard.length < nrows) {
-      let random = [true, false];
-      let idx = Math.floor(Math.random() * 2);
-      if( row.length < ncols) {
-        row.push(random[idx]);
-      } else {
-        initialBoard.push(row);
-        row = [];
+    for (let y = 0; y < nrows; y++) {
+      let row = [];
+      for (let x = 0; x < ncols; x++) {
+        row.push(Math.random() < chanceLightStartsOn);
       }
+      initialBoard.push(row);
     }
     return initialBoard;
   }
@@ -71,19 +84,51 @@ function Board({ nrows=6, ncols=6, chanceLightStartsOn }) {
       };
 
       // TODO: Make a (deep) copy of the oldBoard
-      let boardCopy = oldBoard.slice();
+      // const boardCopy = [...oldBoard];
+      const boardCopy = oldBoard.map(row => [...row]);
+
       // TODO: in the copy, flip this cell and the cells around it
+      flipCell(y, x, boardCopy);
+      flipCell(y-1, x, boardCopy);
+      flipCell(y+1, x, boardCopy);
+      flipCell(y, x-1, boardCopy);
+      flipCell(y, x+1, boardCopy);
 
       // TODO: return the copy
+      return boardCopy;
     });
   }
 
 
   // if the game is won, just show a winning msg & render nothing else
 
+
   // TODO
 
   // make table board
+
+  let tableBoard = [];
+
+  for(let y = 0; y < nrows; y++){
+    let rows = [];
+    for(let x = 0; x < ncols; x++){
+      let coord = `${y}-${x}`;
+      let cell = (<Cell 
+        key={coord}
+        flipCellsAroundMe={() => flipCellsAround(coord)}
+        isLit={board[y][x]}
+        />)
+      rows.push(cell);
+    }
+    tableBoard.push(<tr key={y}>{rows}</tr>);
+  }
+  console.log(board);
+
+  return(
+    <table className="Board">
+      <tbody>{tableBoard}</tbody>
+    </table>
+  )
 
   // TODO
 }
