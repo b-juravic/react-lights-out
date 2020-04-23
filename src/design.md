@@ -1,4 +1,4 @@
-Lights Out Design Notes
+Lights Out Initial Design Notes
 
 Components:
 App (highest level)
@@ -47,10 +47,10 @@ updateLights gets invoked when cell is clicked and then will update the state in
    [f, f, f, f, f, f]
    [f, f, f, f, f, f]
    [f, f, f, f, f, f]
-   
+
    y=3
    x=2
-   
+
 
    coord = 3-2
 
